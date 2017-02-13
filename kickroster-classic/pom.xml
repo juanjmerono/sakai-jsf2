@@ -60,10 +60,6 @@
 			<groupId>org.sakaiproject.kernel</groupId>
 			<artifactId>sakai-component-manager</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-roster-api</artifactId>
-		</dependency>
 		<!-- apache commons logging -->
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -73,12 +69,12 @@
 		<dependency>
 			<groupId>org.sakaiproject.jsf</groupId>
 			<artifactId>jsf-tool</artifactId>
-			<version>${sakai.jsf.version}</version>
+			<version>${sakai.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.sakaiproject.jsf</groupId>
 			<artifactId>jsf-app</artifactId>
-			<version>${sakai.jsf.version}</version>
+			<version>${sakai.version}</version>
 			<classifier>jsf2</classifier>
 			<exclusions>
 				<exclusion>
@@ -98,7 +94,7 @@
 		<dependency>
 			<groupId>org.sakaiproject.jsf</groupId>
 			<artifactId>jsf-widgets-sun-depend</artifactId>
-			<version>${sakai.jsf.version}</version>
+			<version>${sakai.version}</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
@@ -182,7 +178,7 @@
 	</dependencies>
 	
 	<build>
-		<finalName>kickroster</finalName>
+		<finalName>kickroster-classic</finalName>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<resources>
 			<resource>

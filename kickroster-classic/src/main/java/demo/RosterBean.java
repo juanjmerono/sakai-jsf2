@@ -2,23 +2,24 @@ package demo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.richfaces.model.selection.Selection;
-import org.sakaiproject.api.app.roster.Participant;
-import org.sakaiproject.api.app.roster.RosterManager;
+import org.sakaiproject.authz.api.Member;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Group;
+import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 import org.sakaiproject.tool.api.ToolManager;
+import org.sakaiproject.user.api.User;
+import org.sakaiproject.user.api.UserDirectoryService;
 
 public class RosterBean {
 	
@@ -32,23 +33,41 @@ public class RosterBean {
 	private Selection selection;
 
 	/* Sakai Services */
-	protected RosterManager rosterManager;
 	protected SiteService siteService;
 	protected ToolManager toolManager;
+	protected UserDirectoryService userDirectoryService;
 
 	private SelectItem[] roleOptions = new SelectItem[]{new SelectItem("","Select"),new SelectItem("access","access"),new SelectItem("maintain","maintain"),new SelectItem("Instructor","Instructor"),new SelectItem("Student","Student")};
 	
 	public String getGroup() { return group; }
 	public void setGroup(String group) { this.group = group; } 
 
-	public void setRosterManager(RosterManager rosterManager) { this.rosterManager = rosterManager; }
+	public void setUserDirectoryService(UserDirectoryService userDirectoryService) { this.userDirectoryService = userDirectoryService; }
 	public void setSiteService(SiteService siteService) { this.siteService = siteService; }
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
 	
 	public List<Participant> getDataModel() {
-		List<Participant> list = new ArrayList<Participant>();
-		if (rosterManager!=null) list = group==null||group.equals("-")?rosterManager.getRoster():rosterManager.getRoster(group);
-		return list;
+		List<Participant> users = new ArrayList<Participant>();
+		try {
+			Site currentSite = siteService.getSite(toolManager.getCurrentPlacement().getContext());
+			if (group==null||group.equals("-")) {
+				Collection<Member> currentMembers = currentSite.getMembers();
+				for (Member m:currentMembers) {
+					users.add(new Participant(userDirectoryService.getUser(m.getUserId()),m.getRole().getId(),""));
+				}
+			} else {
+				Set<String> groups = new HashSet<String>();
+				groups.add(group);
+				Collection<String> members = currentSite.getMembersInGroups(groups);
+				for (String m:members) {
+					Member member = currentSite.getMember(m);
+					users.add(new Participant(userDirectoryService.getUser(m),member.getRole().getId(),group));
+				}
+			}
+		} catch (Exception ex) {
+			log.error("Error getting members.");
+		}
+		return users;
 	}
 	
     public List<SelectItem> getGroupOptions() {
@@ -93,5 +112,19 @@ public class RosterBean {
     public SelectItem[] getRoleOptions() {  
         return roleOptions;  
     }  	
+
+    class Participant {
+    	
+    	public User user;
+    	public String roleTitle;
+    	public String groupsString;
+    	
+    	public Participant(User user, String roleTitle, String groupsString) {
+    		this.user = user;
+    		this.roleTitle = roleTitle;
+    		this.groupsString = groupsString;
+    	}
+    	
+    }
     
 }

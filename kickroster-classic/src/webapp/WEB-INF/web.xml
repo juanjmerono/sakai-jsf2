@@ -74,7 +74,7 @@
 	</filter-mapping>
 	<!-- Sakai JSF Tool -->
 	<servlet>
-		<servlet-name>sakai.kickroster</servlet-name>
+		<servlet-name>sakai.kickroster.classic</servlet-name>
 		<servlet-class>org.sakaiproject.jsf.util.JsfTool</servlet-class>
 		<init-param>
 			<param-name>default</param-name>
@@ -111,9 +111,6 @@
 	</servlet-mapping>
 	<!-- Sakai Listeners -->
 	<listener>
-		<listener-class>org.sakaiproject.util.ToolListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.sakaiproject.util.ContextLoaderListener</listener-class>
+		<listener-class>org.sakaiproject.util.SakaiContextLoaderListener</listener-class>
 	</listener>
 </web-app>

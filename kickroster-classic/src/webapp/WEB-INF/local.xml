@@ -7,7 +7,7 @@
 
 	<alias name="org.sakaiproject.tool.api.ToolManager" alias="LocalToolManager"/>
 	<alias name="org.sakaiproject.site.api.SiteService" alias="LocalSiteService"/>
-	<alias name="org.sakaiproject.api.app.roster.RosterManager" alias="LocalRosterManager"/>
+	<alias name="org.sakaiproject.user.api.UserDirectoryService" alias="LocalUserDirectoryService"/>
 	
 </beans>
 

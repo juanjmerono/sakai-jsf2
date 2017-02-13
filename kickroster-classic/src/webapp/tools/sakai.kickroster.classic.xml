@@ -3,9 +3,9 @@
 <registration>
 
 	<tool
-			id="sakai.kickroster3"
-			title="KickRoster3"
-			description="JSF 2.0 PrimeFaces Application">
+			id="sakai.kickroster.classic"
+			title="KickRoster Classic"
+			description="JSF1.2 Application">
 		<category name="project" />
 		<category name="course" />
 	</tool>

@@ -2,7 +2,7 @@
 Sample tools Developed with JSF2 and Sakai 11+.
 
 # kickroster-classic
-Simple roster tool developed with JSF 1.2 and RichFaces.
+Simple roster tool developed with JSF 1.2 and RichFaces/PrimeFaces.
 
 # kickroster-prime
 Simple roster tool developed with JSF 2.0 and PrimeFaces.
