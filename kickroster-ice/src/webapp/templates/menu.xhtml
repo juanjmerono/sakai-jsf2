@@ -1,0 +1,18 @@
+<f:subview id="menusakai" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sakai="http://sakaiproject.org/jsf/sakai">
+
+	<h:form id="barra" rendered="#{render == 'true'}">
+		<sakai:tool_bar>
+			<sakai:tool_bar_item				
+				action="index"				
+				value="#{msgs.showRich}"/>
+			<sakai:tool_bar_item				
+				action="lindex"
+				value="#{msgs.showPrime}"/>
+		</sakai:tool_bar>
+	</h:form>
+
+</f:subview>
