@@ -53,19 +53,24 @@ public class RosterBean {
 			if (group==null||group.equals("-")) {
 				Collection<Member> currentMembers = currentSite.getMembers();
 				for (Member m:currentMembers) {
-					users.add(new Participant(userDirectoryService.getUser(m.getUserId()),m.getRole().getId(),""));
+					StringBuffer groups = new StringBuffer("");
+					for (Group g:currentSite.getGroupsWithMember(m.getUserId())) {
+						groups.append(g.getTitle() + " ");
+					}
+					users.add(new Participant(userDirectoryService.getUser(m.getUserId()),m.getRole().getId(),groups.toString()));
 				}
 			} else {
 				Set<String> groups = new HashSet<String>();
 				groups.add(group);
+				Group grp = currentSite.getGroup(group);
 				Collection<String> members = currentSite.getMembersInGroups(groups);
 				for (String m:members) {
 					Member member = currentSite.getMember(m);
-					users.add(new Participant(userDirectoryService.getUser(m),member.getRole().getId(),group));
+					users.add(new Participant(userDirectoryService.getUser(m),member.getRole().getId(),grp.getTitle()));
 				}
 			}
 		} catch (Exception ex) {
-			log.error("Error getting members.");
+			log.error("Error getting members.",ex);
 		}
 		return users;
 	}
@@ -78,7 +83,7 @@ public class RosterBean {
     		for (Group g:groups) {
     			items.add(new SelectItem(g.getId(),g.getTitle()));
     		}
-    	} catch (IdUnusedException ex) {
+    	} catch (Exception ex) {
     		log.error("Error getting groups.",ex);
     	}
         return items;  
@@ -113,7 +118,7 @@ public class RosterBean {
         return roleOptions;  
     }  	
 
-    class Participant {
+    public class Participant {
     	
     	public User user;
     	public String roleTitle;
@@ -124,7 +129,31 @@ public class RosterBean {
     		this.roleTitle = roleTitle;
     		this.groupsString = groupsString;
     	}
-    	
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		public String getRoleTitle() {
+			return roleTitle;
+		}
+
+		public void setRoleTitle(String roleTitle) {
+			this.roleTitle = roleTitle;
+		}
+
+		public String getGroupsString() {
+			return groupsString;
+		}
+
+		public void setGroupsString(String groupsString) {
+			this.groupsString = groupsString;
+		}
+
     }
     
 }

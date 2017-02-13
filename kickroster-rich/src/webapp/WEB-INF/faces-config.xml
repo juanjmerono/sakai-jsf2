@@ -19,8 +19,8 @@
 		<managed-bean-class>demo.RosterBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
-			<property-name>rosterManager</property-name>
-			<value>#{LocalRosterManager}</value>
+			<property-name>userDirectoryService</property-name>
+			<value>#{LocalUserDirectoryService}</value>
 		</managed-property>
 		<managed-property>
 			<property-name>toolManager</property-name>
