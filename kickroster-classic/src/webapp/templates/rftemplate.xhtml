@@ -1,0 +1,24 @@
+<sakai:view title="Holita" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sakai="http://sakaiproject.org/jsf/sakai"	
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<sakai:stylesheet path="/css/style.css" />
+	
+	<ui:include src="menu.xhtml">
+		<ui:param name="render" value="true"/>
+	</ui:include>
+	
+	<rich:panel>
+		<f:facet name="header">
+        	<ui:insert name="pageHeader">Page Header</ui:insert>
+        </f:facet>
+        
+        <ui:insert name="body">Page Body</ui:insert>
+        
+    </rich:panel>
+    
+</sakai:view>

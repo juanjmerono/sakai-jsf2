@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<registration>
+
+	<tool
+			id="sakai.kickroster3"
+			title="KickRoster3"
+			description="JSF 2.0 PrimeFaces Application">
+		<category name="project" />
+		<category name="course" />
+	</tool>
+
+</registration>

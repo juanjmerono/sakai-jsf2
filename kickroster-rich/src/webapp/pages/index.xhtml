@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" 
+	template="/templates/template.xhtml">
+
+	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}"/></ui:define>
+
+	<ui:define name="body">
+		<h:form id="form">
+			<h:panelGrid columns="1" columnClasses="top , top">
+				<h:outputText value="#{msgs.mainTitle}"/>
+				<h:selectOneMenu id="chooseGrp" value="#{rosterBean.group}">
+					<f:selectItems value="#{rosterBean.groupOptions}"/>
+					<a4j:ajax event="valueChange" render="table" execute="@form"/>
+				</h:selectOneMenu>
+				<rich:extendedDataTable value="#{rosterBean.dataModel}"
+					var="participant" id="table" width="800px" height="400px">
+					<rich:column id="col_1" width="170px" label="Last Name">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.lastname}" id="roster_last_name" />
+						</f:facet>
+						<h:outputText value="#{participant.user.lastName}" />
+					</rich:column>
+					<rich:column id="col_2" width="170px" label="First Name">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.firstname}" id="roster_first_name" />
+						</f:facet>
+						<h:outputText value="#{participant.user.firstName}" />
+					</rich:column>
+					<rich:column id="col_3" width="170px" label="Role">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.role}" id="roster_role" />
+						</f:facet>
+						<h:outputText value="#{participant.roleTitle}" />
+					</rich:column>
+					<rich:column id="col_4" width="170px" label="Group">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.group}" id="roster_group" />
+						</f:facet>
+						<h:outputText value="#{participant.groupsString}" />
+					</rich:column>
+				</rich:extendedDataTable>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

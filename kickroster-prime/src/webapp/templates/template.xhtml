@@ -1,0 +1,31 @@
+<sakai:view title="Holita" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sakai="http://sakaiproject.org/jsf/sakai"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:facet name="head">
+		<h:head>
+		    <title>PrimeFaces Application</title>
+		    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		</h:head>
+	</f:facet>
+	
+	<sakai:stylesheet path="/css/style.css" />
+	
+	<ui:include src="menu.xhtml">
+		<ui:param name="render" value="true"/>
+	</ui:include>
+
+	<p:panel>
+		<f:facet name="header">
+			<ui:insert name="pageHeader">Page Header</ui:insert>
+		</f:facet>
+		
+		<ui:insert name="body">Page Body</ui:insert>
+		
+	</p:panel>
+
+
+</sakai:view>

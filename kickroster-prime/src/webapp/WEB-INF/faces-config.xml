@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<managed-bean>
+		<description>Dynamic Resource Bundle Loader</description>
+		<managed-bean-name>msgs</managed-bean-name>
+		<managed-bean-class>org.sakaiproject.util.ResourceLoader</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<description>Bundle baseName</description>
+			<property-name>baseName</property-name>
+			<value>demo.messages</value>
+		</managed-property>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>rosterBean</managed-bean-name>
+		<managed-bean-class>demo.RosterBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>rosterManager</property-name>
+			<value>#{LocalRosterManager}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>toolManager</property-name>
+			<value>#{LocalToolManager}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>siteService</property-name>
+			<value>#{LocalSiteService}</value>
+		</managed-property>
+	</managed-bean>
+
+</faces-config>

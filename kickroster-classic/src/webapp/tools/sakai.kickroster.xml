@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<registration>
+
+	<tool
+			id="sakai.kickroster"
+			title="KickRoster"
+			description="JSF1.2 Application">
+		<category name="project" />
+		<category name="course" />
+	</tool>
+
+</registration>

@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+
+	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}"/></ui:define>
+
+	<ui:define name="body">
+		<h:outputText value="#{msgs.mainTitle}"/>
+		<h:form id="form">
+			<h:selectOneMenu id="chooseGrp" value="#{rosterBean.group}">
+				<f:selectItems value="#{rosterBean.groupOptions}"/>
+				<p:ajax event="change" update="table" process="chooseGrp"/>
+			</h:selectOneMenu>
+			<p:dataTable id="table" var="participant" value="#{rosterBean.dataModel}" paginator="true" rows="10">
+				<p:column filterBy="#{participant.user.lastName}" sortBy="#{participant.user.lastName}" filterEvent="change">
+					<f:facet name="header">
+						<h:outputText value="#{msgs.lastname}" />
+					</f:facet>
+					<h:outputText value="#{participant.user.lastName}" />
+				</p:column>
+				<p:column filterBy="#{participant.user.firstName}" sortBy="#{participant.user.firstName}" filterEvent="change">
+					<f:facet name="header">
+						<h:outputText value="#{msgs.firstname}" />
+					</f:facet>
+					<h:outputText value="#{participant.user.firstName}" />
+				</p:column>
+				<p:column filterBy="#{participant.roleTitle}" sortBy="#{participant.roleTitle}" filterEvent="change">
+					<f:facet name="header">
+						<h:outputText value="#{msgs.role}" />
+					</f:facet>
+					<h:outputText value="#{participant.roleTitle}" />
+				</p:column>
+				<p:column filterBy="#{participant.groupsString}" sortBy="#{participant.groupsString}" filterEvent="change">
+					<f:facet name="header">
+						<h:outputText value="#{msgs.group}" />
+					</f:facet>
+					<h:outputText value="#{participant.groupsString}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

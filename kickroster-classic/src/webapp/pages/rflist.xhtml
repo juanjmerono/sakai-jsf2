@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="/templates/rftemplate.xhtml">
+
+	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}"/></ui:define>
+
+	<ui:define name="body">
+		<script type="text/javascript">
+	        function setCaretToEnd (e) {
+	            var control = $((e.target ? e.target : e.srcElement).id);
+	            if (control.createTextRange) {
+	                var range = control.createTextRange();
+	                range.collapse(false);
+	                range.select();
+	            }
+	            else if (control.setSelectionRange) {
+	                control.focus();
+	                var length = control.value.length;
+	                control.setSelectionRange(length, length);
+	            }
+	            control.selectionStart = control.selectionEnd = control.value.length;
+	        } 
+    	</script>
+		<h:form id="form">
+			<h:panelGrid columns="1" columnClasses="top , top">
+				<h:outputText value="#{msgs.mainTitle}"/>
+				<h:selectOneMenu id="chooseGrp" value="#{rosterBean.group}">
+					<f:selectItems value="#{rosterBean.groupOptions}"/>
+					<a4j:support event="onchange" ajaxSingle="true" reRender="table" />
+				</h:selectOneMenu>
+				<rich:extendedDataTable value="#{rosterBean.dataModel}"
+					var="participant" id="table" width="800px" height="400px"
+					sortMode="#{rosterBean.sortMode}">
+					<rich:column sortable="true" sortBy="#{participant.user.lastName}" id="col_1" width="170px" label="Last Name">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.lastname}" id="roster_last_name" />
+						</f:facet>
+						<h:outputText value="#{participant.user.lastName}" />
+					</rich:column>
+					<rich:column sortable="true" sortBy="#{participant.user.firstName}" id="col_2" width="170px" label="First Name">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.firstname}" id="roster_first_name" />
+						</f:facet>
+						<h:outputText value="#{participant.user.firstName}" />
+					</rich:column>
+					<rich:column sortable="true" sortBy="#{participant.roleTitle}" id="col_3" width="170px" label="Role">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.role}" id="roster_role" />
+						</f:facet>
+						<h:outputText value="#{participant.roleTitle}" />
+					</rich:column>
+					<rich:column sortable="true" sortBy="#{participant.groupsString}" id="col_4" width="170px" label="Group">
+						<f:facet name="header">
+							<h:outputText value="#{msgs.group}" id="roster_group" />
+						</f:facet>
+						<h:outputText value="#{participant.groupsString}" />
+					</rich:column>
+				</rich:extendedDataTable>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
