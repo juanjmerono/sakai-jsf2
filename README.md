@@ -19,12 +19,14 @@ This a sample tool with JSF 1.2 technology using RichFaces (3.3.3.Final) and Pri
 
 For testing retrocompatibility.
 
-KickRoster Ice
-====================
+KickRoster Ice (beta)
+======================
 
 This a sample tool with JSF 2.2 technology using IceFaces (4.1.1).
 
 ![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/new-ice.jpg)
+
+Warning: This is under development, IceFaces seems to be not compatible with Sakai so far.
 
 KickRoster Prime
 ====================
