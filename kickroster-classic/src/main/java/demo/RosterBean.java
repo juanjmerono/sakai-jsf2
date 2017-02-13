@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
@@ -45,6 +46,10 @@ public class RosterBean {
 	public void setUserDirectoryService(UserDirectoryService userDirectoryService) { this.userDirectoryService = userDirectoryService; }
 	public void setSiteService(SiteService siteService) { this.siteService = siteService; }
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
+	
+	public String getVersion() {
+		return FacesContext.class.getPackage().getImplementationVersion();
+	}
 	
 	public List<Participant> getDataModel() {
 		List<Participant> users = new ArrayList<Participant>();

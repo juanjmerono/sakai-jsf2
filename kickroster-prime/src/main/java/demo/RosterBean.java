@@ -39,6 +39,10 @@ public class RosterBean {
 	protected ToolManager toolManager;
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
 	
+	public String getVersion() {
+		return FacesContext.class.getPackage().getImplementationVersion();
+	}
+	
 	public List<Participant> getDataModel() {
 		List<Participant> users = new ArrayList<Participant>();
 		try {

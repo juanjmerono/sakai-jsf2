@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.prime.com.tr/ui"
 	template="/templates/pftemplate.xhtml">
 
-	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}"/></ui:define>
+	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}: #{rosterBean.version}"/></ui:define>
 
 	<ui:define name="body">
 		<h:outputText value="#{msgs.mainTitle}"/>
