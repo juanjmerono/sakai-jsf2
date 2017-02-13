@@ -2,19 +2,23 @@ package demo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.richfaces.VersionBean;
-import org.richfaces.model.selection.Selection;
+import org.icefaces.ace.model.chart.SectorSeries;
+import org.icefaces.ace.model.chart.SectorSeries.SectorType;
 import org.sakaiproject.authz.api.Member;
+import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Group;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
@@ -27,30 +31,49 @@ public class RosterBean {
 	private static Log log = LogFactory.getLog(RosterBean.class);
 	
 	protected String group;
-	private String sortMode = "multi";
-	private String selectionMode = "multi";
-	private String tableState;
-	
-	private Selection selection;
-
-	/* Sakai Services */
-	protected SiteService siteService;
-	protected ToolManager toolManager;
-	protected UserDirectoryService userDirectoryService;
-
-	private SelectItem[] roleOptions = new SelectItem[]{new SelectItem("","Select"),new SelectItem("access","access"),new SelectItem("maintain","maintain"),new SelectItem("Instructor","Instructor"),new SelectItem("Student","Student")};
-	
 	public String getGroup() { return group; }
 	public void setGroup(String group) { this.group = group; } 
 
+	protected UserDirectoryService userDirectoryService;
 	public void setUserDirectoryService(UserDirectoryService userDirectoryService) { this.userDirectoryService = userDirectoryService; }
+	
+	protected SiteService siteService;
 	public void setSiteService(SiteService siteService) { this.siteService = siteService; }
+	
+	protected ToolManager toolManager;
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
 	
 	public String getVersion() {
-		return FacesContext.class.getPackage().getImplementationVersion() + " RichFaces: " + VersionBean._version._versionInfo + " PrimeFaces: 1.1";
+		return FacesContext.class.getPackage().getImplementationVersion() + " IceFaces: 4.1.1";
 	}
 	
+    public List<SectorSeries> getPieData() {
+		List<SectorSeries> pieData = new ArrayList<SectorSeries>();
+		try {
+			Map<String,Integer> groups = new HashMap<String,Integer>();
+			Site currentSite = siteService.getSite(toolManager.getCurrentPlacement().getContext());
+			Collection<Member> currentMembers = currentSite.getMembers();
+			for (Member m:currentMembers) {
+				for (Group g:currentSite.getGroupsWithMember(m.getUserId())) {
+					Integer i = groups.get(g.getTitle());
+					if (i==null) i = 0;
+					groups.put(g.getTitle(), i++);
+				}
+			}
+			SectorSeries ss = new SectorSeries();
+			for (String key:groups.keySet()) {
+				ss.add(key,groups.get(key));
+			}
+	        ss.setType(SectorType.PIE);
+	        ss.setShowDataLabels(true);
+	        ss.setSliceMargin(4);
+			pieData.add(ss);
+		} catch (Exception ex) {
+			log.error("Error getting members.",ex);
+		}
+        return pieData;
+    }
+
 	public List<Participant> getDataModel() {
 		List<Participant> users = new ArrayList<Participant>();
 		try {
@@ -83,46 +106,26 @@ public class RosterBean {
     public List<SelectItem> getGroupOptions() {
     	List<SelectItem> items = new ArrayList<SelectItem>();
 		items.add(new SelectItem("-","-- Group --"));
-    	try {
-    		Collection<Group> groups = siteService.getSite(toolManager.getCurrentPlacement().getContext()).getGroups();
-    		for (Group g:groups) {
-    			items.add(new SelectItem(g.getId(),g.getTitle()));
-    		}
-    	} catch (Exception ex) {
-    		log.error("Error getting groups.",ex);
-    	}
+		if (siteService!=null && toolManager!=null) {
+	    	try {
+	    		Collection<Group> groups = siteService.getSite(toolManager.getCurrentPlacement().getContext()).getGroups();
+	    		for (Group g:groups) {
+	    			items.add(new SelectItem(g.getId(),g.getTitle()));
+	    		}
+	    	} catch (IdUnusedException ex) {
+	    		log.error("Error getting groups.",ex);
+	    	}
+		}
         return items;  
     }  	
     
-	public String getSortMode() { return sortMode; }
-	public void setSortMode(String sortMode) { this.sortMode = sortMode; }
-	
-	public String getSelectionMode() { return selectionMode; }
-	public void setSelectionMode(String selectionMode) { this.selectionMode = selectionMode; }
-
-	public String getTableState() { return tableState; }
-	public void setTableState(String tableState) { this.tableState = tableState; }
-	
-	public Selection getSelection() { return selection; }
-	public void setSelection(Selection selection) { this.selection = selection; }
-	
-	public List<Participant> getSelectedItems() { 
-		List<Participant> selected = new ArrayList<Participant>();
-		if (selection!=null) {
-			List<Participant> data= getDataModel();
-			Iterator<Object> iterator = selection.getKeys();
-			while (iterator.hasNext()) {
-				selected.add(data.get((Integer)iterator.next()));
-			}
-		}
-		return selected;
-	}
-	public void takeSelection() { log.info("TakeSelection " + selection.getKeys()); }
-	
-    public SelectItem[] getRoleOptions() {  
-        return roleOptions;  
-    }  	
-
+    public void save(ActionEvent actionEvent) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		context.addMessage(null, new FacesMessage("Successful", "Hello " + group));
+		context.addMessage(null, new FacesMessage("Second Message", "Additional Info Here..."));
+	}    
+    
     public class Participant {
     	
     	public User user;
@@ -160,5 +163,5 @@ public class RosterBean {
 		}
 
     }
-    
+
 }

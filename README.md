@@ -17,22 +17,35 @@ This a sample tool with JSF 1.2 technology using RichFaces (3.3.3.Final) and Pri
 ![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/classic-rich.jpg)
 ![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/classic-prime.jpg)
 
+For testing retrocompatibility.
+
+KickRoster Ice (beta)
+======================
+
+This a sample tool with JSF 2.2 technology using IceFaces (4.1.1).
+
+![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/new-ice.jpg)
+
+Warning: This is under development, IceFaces seems to be not compatible with Sakai so far.
+
 KickRoster Prime
 ====================
 
-This a sample tool with JSF 2.0 technology using PrimeFaces (3.5).
+This a sample tool with JSF 2.2 technology using PrimeFaces (6.0).
 
 ![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/new-prime.jpg)
 
 KickRoster Rich
 ====================
 
-This a sample tool with JSF 2.0 technology using RichFaces (4.3.0.Final).
+This a sample tool with JSF 2.1 technology using RichFaces (4.3.7.Final).
 
 ![](https://raw.githubusercontent.com/juanjmerono/sakai-jsf2/master/images/new-rich.jpg)
 
+RichFaces EOL https://developer.jboss.org/wiki/RichFacesEnd-Of-LifeQuestionsAnswers
 
 Future Work
 ==============
 
-Upgrading JSF libraries to a more recent ones.
+- Create a more ambitious application, using the most powerful features of latest versions of jsf.
+

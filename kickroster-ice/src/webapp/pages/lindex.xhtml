@@ -2,21 +2,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://www.icefaces.org/icefaces/components"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
 	template="/templates/template.xhtml">
 
 	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}: #{rosterBean.version}"/></ui:define>
 
 	<ui:define name="body">
 		<h:outputText value="#{msgs.mainTitle}"/>
-		<h:form id="form">
-			<h:selectOneMenu id="chooseGrp" value="#{rosterBean.group}">
-				<f:selectItems value="#{rosterBean.groupOptions}"/>
-				<p:ajax event="change" update="table" process="chooseGrp"/>
-			</h:selectOneMenu>
-			<p:dataList id="table" value="#{rosterBean.dataModel}" var="participant" type="ordered">
-				#{participant.user.lastName}, #{participant.user.firstName}
-			</p:dataList>
+		<h:form id="graph">
+			<p:chart id="chart" animated="false" value="#{rosterBean.pieData}"/>
 		</h:form>
 	</ui:define>
 
