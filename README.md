@@ -35,4 +35,5 @@ This a sample tool with JSF 2.1 technology using RichFaces (4.3.7.Final).
 Future Work
 ==============
 
-Upgrading JSF libraries to a more recent ones.
+- Create a more ambitious application, using the most powerful features of latest versions of jsf.
+- Add support for IceFaces and MyFaces.
