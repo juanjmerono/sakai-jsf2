@@ -13,6 +13,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.richfaces.VersionBean;
 import org.sakaiproject.authz.api.Member;
 import org.sakaiproject.site.api.Group;
 import org.sakaiproject.site.api.Site;
@@ -39,7 +40,7 @@ public class RosterBean {
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
 	
 	public String getVersion() {
-		return FacesContext.class.getPackage().getImplementationVersion();
+		return FacesContext.class.getPackage().getImplementationVersion() + " RichFaces: " + VersionBean.VERSION;
 	}
 	
 	public List<Participant> getDataModel() {

@@ -12,9 +12,9 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.richfaces.VersionBean;
 import org.richfaces.model.selection.Selection;
 import org.sakaiproject.authz.api.Member;
-import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Group;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
@@ -48,7 +48,7 @@ public class RosterBean {
 	public void setToolManager(ToolManager toolManager) { this.toolManager = toolManager; }
 	
 	public String getVersion() {
-		return FacesContext.class.getPackage().getImplementationVersion();
+		return FacesContext.class.getPackage().getImplementationVersion() + " RichFaces: " + VersionBean._version._versionInfo + " PrimeFaces: 1.1";
 	}
 	
 	public List<Participant> getDataModel() {

@@ -6,7 +6,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	template="/templates/template.xhtml">
 
-	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}"/>: <h:outputText value="#{rosterBean.version}"/></ui:define>
+	<ui:define name="pageHeader"><h:outputText value="#{msgs.title}: #{rosterBean.version}"/></ui:define>
 
 	<ui:define name="body">
 		<h:form id="form">
